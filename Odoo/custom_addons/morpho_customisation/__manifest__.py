@@ -19,10 +19,12 @@
     'icon': "/morpho_customisation/static/src/image/logo.png",    
     'author': 'Aswin Nath',
     'website': 'https://theaswin.github.io/personal_website/',
-    'depends': ['contacts'],
+    'depends': ['base','contacts'],
     'data': [
         'security/ir.model.access.csv',
+        'security/security.xml',
         'views/morpho_backend_view.xml',
+        'views/organisation_view.xml',
         'views/menu_view.xml',
         ],
     'installable': True,

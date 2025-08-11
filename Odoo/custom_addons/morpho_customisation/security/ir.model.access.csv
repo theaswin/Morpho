@@ -1,2 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_morpho_backend,access_morpho_backend,model_morpho_backend,,1,1,1,0
+access_morpho_backend,access_morpho_backend,model_morpho_backend,,1,1,1,1
+access_client_organisation,access_client_organisation,model_client_organisation,,1,1,1,1
+access_morpho_sections,access_morpho_sections,model_morpho_sections,,1,1,1,1

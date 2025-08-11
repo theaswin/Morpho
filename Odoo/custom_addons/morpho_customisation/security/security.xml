@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+
+    <record id="group_organisation_user" model="res.groups">
+        <field name="name">Organisation User</field>
+    </record>
+
+    <record id="prganisation_org_rule" model="ir.rule">
+        <field name="name">Org: Same Organisation Only</field>
+        <field name="model_id" ref="model_client_organisation"/>
+        <field name="groups" eval="[(4, ref('morpho_customisation.group_organisation_user'))]"/>
+        <field name="domain_force">[('id', '=', user.organisation_id.id)]</field>
+    </record>
+
+    <record id="contacts_client_org_rule" model="ir.rule">
+        <field name="name">Contacts: Same Organisation Only</field>
+        <field name="model_id" ref="model_res_partner"/>
+        <field name="groups" eval="[(4, ref('morpho_customisation.group_organisation_user'))]"/>
+        <field name="domain_force">[('organisation_id', '=', user.organisation_id.id)]</field>
+    </record>
+
+
+</odoo>

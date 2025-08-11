@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+
+
+    <!-- List (list) View -->
+    <record id="view_client_list" model="ir.ui.view">
+        <field name="name">client.organisation.list</field>
+        <field name="model">client.organisation</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="validity_till"/>
+                <field name="status" widget="badge" 
+                    decoration-success="status == 'active'"
+                    decoration-info="status == 'in_progress'"
+                    decoration-danger="status == 'expaired'"
+                    decoration-warning="status == 'expiring'"
+                    class="text-end"
+
+                />
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_client_form" model="ir.ui.view">
+        <field name="name">client.organisation.form</field>
+        <field name="model">client.organisation</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                        <h1>
+                            <field name="name" readonly="1" invisible="name == False" placeholder="Name"/>
+                        </h1>
+                        </group>
+                        <group>
+                            <field name="image_1920" widget="image" class="oe_avatar" nolabel="1"   />
+                        </group>
+                    </group>
+
+                    <group>
+                        <group>
+                            <field name="name" required="1" invisible="name != False"/>
+                            <field name="street"/>
+                            <field name="street2"/>
+                            <field name="city"/>
+                            <field name="state_id"/>
+                            <field name="zip"/>
+                            <field name="country_id"/>
+                            <field name="description"/>
+                        </group>
+
+                        <group>
+                            <field name="phone"/>
+                            <field name="mobile"/>
+                            <field name="email"/>
+                            <field name="website"/>
+                            <field name="vat"/>
+                            <field name="company_type"/>
+                            <field name="status"/>
+                        </group>
+                    </group>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+        <!-- Action & Menu -->
+    <record id="action_organisations" model="ir.actions.act_window">
+        <field name="name">Clients</field>
+        <field name="res_model">client.organisation</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+
+</odoo>
