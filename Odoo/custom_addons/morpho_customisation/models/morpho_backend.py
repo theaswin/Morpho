@@ -6,7 +6,7 @@ class MorphoWeb(models.Model):
 
     name = fields.Char(string="Name")
     website = fields.Char(string="URL")
-    organisation_id = fields.Many2one('client.organisation',string="Organisation")
+    organisation_id = fields.Many2one('client.organisation',string="Organisation",default=lambda self: self.env.user.organisation_id)
 
     # Banner Section
     header_image = fields.Binary(string="Banner Image")
@@ -25,9 +25,25 @@ class MorphoWeb(models.Model):
     f_html3 = fields.Html(string="Content 3")
     
     sections_ids = fields.One2many('morpho.sections','morpho_backend_id',string="Sections")
+    image_sections_ids = fields.One2many('image.sections','morpho_backend_id',string="Sections")
 
 
-class Sections(models.Model):
+class NormalSections(models.Model):
     _name='morpho.sections'
 
     morpho_backend_id = fields.Many2one('morpho.backend',string="Backend")
+
+    title = fields.Char(string="Title")
+    image = fields.Binary(string="Image")
+    text = fields.Text(string="Text")
+    color = fields.Char(string="Color")
+
+
+class ImageSections(models.Model):
+    _name='image.sections'
+
+    morpho_backend_id = fields.Many2one('morpho.backend',string="Backend")
+
+    title = fields.Char(string="Title")
+    image_ids = fields.Many2many('ir.attachment','image_sec_rel','img_sec_id','attach_id',string="Images")
+    color = fields.Char(string="Color")

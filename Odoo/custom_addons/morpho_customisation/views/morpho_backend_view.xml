@@ -40,6 +40,40 @@
                                 <field name="head_html"/>
                             </group>
                         </page>
+                        <page string="Normal Sections">
+                            <field name="sections_ids">
+                                <form>
+                                    <group>
+                                        <group>
+                                            <field name="image"/>
+                                            <field name="color"/>
+                                        </group>
+                                        <group>
+                                            <field name="title"/>
+                                            <field name="text"/>
+                                        </group>
+                                    </group>
+                                </form>
+                                <list>
+                                    <field name="image"/>
+                                    <field name="title"/>
+                                    <field name="text"/>
+                                    <field name="color"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Image Sections">
+                            <field name="image_sections_ids">
+                                
+                                <list editable="bottom">
+                                    <field name="title"/>
+                                    <field name="image_ids" widget="many2many_tags" domain="[('mimetype','=','image/png')]"/>
+                                    <field name="color"/>
+                                </list>
+                            </field>
+                        </page>
+
+
                         <page string="Footer">
                             <group>
                                 <group>
