@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <menuitem id="morpho_main_menu" name="Morpho" 
+        web_icon = "morpho_customisation,static/src/image/icon.png"
+        sequence="10"/>
+
+    <menuitem id="morpho_sub_menu" 
+        name="Website" 
+        parent="morpho_main_menu" 
+        action="action_morpho_backend" 
+        sequence="11"
+        />
+
+
+        
+</odoo>
+
