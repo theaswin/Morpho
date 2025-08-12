@@ -8,6 +8,11 @@
             <list string="Morpho Backends">
                 <field name="name"/>
                 <field name="website"/>
+                <field name="status" widget="badge" 
+                decoration-info="status == 'draft'"
+                decoration-success="status == 'live'"
+                decoration-danger="status == 'archived'"
+                />
             </list>
         </field>
     </record>
@@ -19,10 +24,16 @@
         <field name="arch" type="xml">
             <form string="Morpho Backend">
                 <sheet>
-                    <group>
-                        <field name="name" required="1"/>
-                        <field name="website"/>
+                <group>
+                        <group>
+                            <field name="name" required="1"/>
+                            <field name="website"/>
+                            <field name="status"/>
+                        </group>
+                        <group>
+                        </group>
                     </group>
+
                     <notebook>
                         <page string="Banner">
                             <group>
@@ -45,7 +56,7 @@
                                 <form>
                                     <group>
                                         <group>
-                                            <field name="image"/>
+                                            <field name="image" widget="image"/>
                                             <field name="color"/>
                                         </group>
                                         <group>

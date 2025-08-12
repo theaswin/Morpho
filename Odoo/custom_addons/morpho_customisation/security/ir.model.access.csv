@@ -3,3 +3,8 @@ access_morpho_backend,access_morpho_backend,model_morpho_backend,,1,1,1,1
 access_client_organisation,access_client_organisation,model_client_organisation,,1,1,1,1
 access_morpho_sections,access_morpho_sections,model_morpho_sections,,1,1,1,1
 access_image_sections,access_image_sections,model_image_sections,,1,1,1,1
+
+access_pay_providers,access_pay_providers,model_pay_providers,,1,1,1,1
+access_pay_conf,access_pay_conf,model_pay_conf,,1,1,1,1
+access_pay_logs,access_pay_logs,model_pay_logs,,1,1,1,1
+

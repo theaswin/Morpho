@@ -4,10 +4,12 @@ class MorphoWeb(models.Model):
     _name = 'morpho.backend'
     _description = "Morpho Backend"
 
+    # Morpho Fields
     name = fields.Char(string="Name")
     website = fields.Char(string="URL")
     organisation_id = fields.Many2one('client.organisation',string="Organisation",default=lambda self: self.env.user.organisation_id)
-
+    status = fields.Selection([('draft','Draft'),('in_progress','In Progress'),
+                               ('archived','Archived'),('live','Live')])
     # Banner Section
     header_image = fields.Binary(string="Banner Image")
     header_align = fields.Selection([('full','Full'),('top','Top'),
@@ -26,6 +28,11 @@ class MorphoWeb(models.Model):
     
     sections_ids = fields.One2many('morpho.sections','morpho_backend_id',string="Sections")
     image_sections_ids = fields.One2many('image.sections','morpho_backend_id',string="Sections")
+
+
+    def test(self):
+        print("executing======================")
+        print("Colum Type === ",self.env )
 
 
 class NormalSections(models.Model):

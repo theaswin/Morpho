@@ -7,6 +7,8 @@ class Organisation(models.Model):
 
     name = fields.Char(string="Organisation")
     image_1920 = fields.Image(string="Logo / Image", max_width=1920, max_height=1920)
+    owner_id = fields.Many2one('res.partner',string="Owner")
+    support_id = fields.Many2one('res.partner',string="Support")
     street = fields.Char(string="Street")
     street2 = fields.Char(string="Street 2")
     city = fields.Char(string="City")
