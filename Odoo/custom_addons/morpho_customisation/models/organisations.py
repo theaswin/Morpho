@@ -1,5 +1,5 @@
-from odoo import fields, models, _
-
+from odoo import fields, models, _,api
+from datetime import date, datetime
 class Organisation(models.Model):
     _name = 'client.organisation'
     _description = 'Organisation'
@@ -26,11 +26,41 @@ class Organisation(models.Model):
     ], string="Company Type", default='company')
     
     description = fields.Text(string="Description / Notes")
-    validity_till = fields.Datetime(string="Validity Till")
-    status = fields.Selection([('in_progress','In Progress'),('active','Active'),('expiring','Expiring'),
-                               ('expaired','Expired'),('cancelled','Cancelled')])
-    
+    validity_till = fields.Date(string="Validity Till")
+    valid_days = fields.Integer(string="Days",compute="_compute_validity",store=False)
+    status = fields.Selection([
+        ('active', 'Active'),
+        ('expiring', 'Expiring'),
+        ('expired', 'Expired'),
+        ('cancelled', 'Cancelled')
+    ], default='active', compute="_compute_validity", store=False)
 
+    @api.depends('validity_till')
+    def _compute_validity(self):
+        today = date.today()
+        for rec in self:
+            if rec.validity_till:
+                validity_date = (
+                    rec.validity_till.date() if isinstance(rec.validity_till, datetime)
+                    else rec.validity_till
+                )
+                if not isinstance(validity_date, date):
+                    validity_date = validity_date.date()
+
+            days = (validity_date - today).days
+            rec.valid_days = days
+            if days > 15:
+                rec.status = 'active'
+            elif 1 <= days <= 15:
+                rec.status = 'expiring'
+            else:
+                rec.status = 'expired'
+
+
+    
+    def action_cancel_org(self):
+        for rec in self:
+            rec.status = 'cancelled'
 
     def action_view_websites(self):
         return {

@@ -22,7 +22,7 @@
         <field name="name">morpho.backend.form</field>
         <field name="model">morpho.backend</field>
         <field name="arch" type="xml">
-            <form string="Morpho Backend">
+            <form string="Morpho Backend" >
             
                 <header>
                         <field name="status" widget="statusbar" statusbar_buttons="True"/>
@@ -30,7 +30,7 @@
                             <button name="action_set_inprogress" string="In Progress" type="object" class="btn-primary" invisible="status == 'in_progress'"/>
                             <button name="action_set_archived" string="Archived" type="object" class="btn-primary" invisible="status == 'archived'"/>
                 </header>
-                <sheet>
+                <sheet >
                     <div class="oe_button_box" name="button_box">
                         <button name="action_view_all_sections"
                             type="object"
@@ -42,7 +42,7 @@
 
                 <group>
                         <group>
-                            <field name="name" required="1"/>
+                            <field name="name" required="1" readonly="status == 'live'"/>
                             <field name="is_generated" invisible="1"/>
                             <div style="display: flex; align-items: center; gap: 10px;">
                                     <label for="website" string="Website"/>
@@ -51,7 +51,7 @@
                             </div>
                         </group>
                         <group>
-                            <field name="organisation_id"/>
+                            <field name="organisation_id" readonly="status == 'live'"/>
                         </group>
                     </group>
 
@@ -59,25 +59,24 @@
                         <page string="Banner">
                             <group>
                                 <group>
-                                    <field name="header_image"/>
-                                    <field name="header_align"/>
+                                    <field name="header_image" readonly="status == 'live'"/>
+                                    <field name="header_align" readonly="status == 'live'"/>
                                 </group>
                                 <group>
-                                    <field name="head_content"/>
-                                    <field name="head_content_align"/>
+                                    <field name="head_content" readonly="status == 'live'" />
+                                    <field name="head_content_align" readonly="status == 'live'" />
 
                                 </group>
                             </group>
                             <group>
-                                <field name="head_html"/>
+                                <field name="head_html" readonly="status == 'live'" />
                             </group>
                         </page>
 
-                    <page string="Sections" id="all_sections_page">
+                    <page string="Sections" id="all_sections_page" > 
                         <notebook>
-                            <!-- General Sections tab -->
-                            <page string="General" id="general_sections">
-                                <field name="general_sections_ids" domain="[('section_id','=',1)]">
+                            <page string="General" id="general_sections"    >
+                                <field name="general_sections_ids" readonly="status == 'live'" domain="[('section_id','=',1)]">
                                     <list string="General Sections" id="general_section_list" editable="bottom">
                                         <field name="section_id" readonly="0"/>
                                         <field name="title"/>
@@ -90,8 +89,8 @@
                             </page>
 
                             <!-- Custom Sections tab -->
-                            <page string="Customized" id="custom_sections">
-                                <field name="general_sections_ids">
+                            <page string="Customized" id="custom_sections"  readonly="status == 'live'">
+                                <field name="general_sections_ids" readonly="status == 'live'" >
                                     <list string="General Sections" id="custom_section_list" editable="bottom">
                                         <field name="section_id" domain="[('id','>',1)]" readonly="0"/>
                                     </list>
@@ -117,15 +116,15 @@
 
 
 
-                        <page string="Footer">
+                        <page string="Footer"  readonly="status == 'live'">
                             <group>
                                 <group>
-                                    <field name="f_image"/>
-                                    <field name="f_html1"/>
+                                    <field name="f_image" readonly="status == 'live'" />
+                                    <field name="f_html1" readonly="status == 'live'" />
                                 </group>
                                 <group>
-                                    <field name="f_html2"/>
-                                    <field name="f_html3"/>
+                                    <field name="f_html2" readonly="status == 'live'" />
+                                    <field name="f_html3" readonly="status == 'live'" />
 
                                 </group>
                             </group>
