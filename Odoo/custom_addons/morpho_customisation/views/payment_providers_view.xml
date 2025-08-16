@@ -48,7 +48,7 @@
             <form>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
-                        <button name="action_view_config"
+                        <button name="action_view_credentials"
                             type="object"
                             class="oe_stat_button"
                             string="Credentials"

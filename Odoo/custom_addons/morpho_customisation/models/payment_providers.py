@@ -8,14 +8,20 @@ class PaymentProviders(models.Model):
     name=fields.Char(string="Name")
     availability =fields.Boolean(string="Availability")
 
-    def action_view_config(self):
+    def action_view_credentials(self):
         return {
             'type': 'ir.actions.act_window',
             'res_model': 'pay.conf',
-            'name':"Configurations",
+            'name':"Credentials",
             'view_mode': 'list,form',
             'domain': [('organisation_id', '=', self.id)],
             'context': {'default_organisation_id': self.id},
+            'context': {
+                'create': False,
+                'edit': False,
+                'delete': False,
+            },
+
         }
 
     def action_view_logs(self):

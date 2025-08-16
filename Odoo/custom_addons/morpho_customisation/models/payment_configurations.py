@@ -6,7 +6,7 @@ class PaymentConfigurations(models.Model):
     _rec_name="payment_provider_id"
 
     payment_provider_id = fields.Many2one('pay.providers',string="Payment Provider")
-    organisation_id = fields.Many2one('client.organisation',string="Organisation")
+    organisation_id = fields.Many2one('client.organisation',string="Organisation",default=lambda self: self.env.user.organisation_id)
     key_id = fields.Char(string="Key ID")
     key_secret = fields.Char(string="Key Secret")
 
