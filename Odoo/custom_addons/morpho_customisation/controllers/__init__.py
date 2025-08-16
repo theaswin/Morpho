@@ -1,2 +1,2 @@
 from . import ui
-from . import payment_api
+from . import razorpay_api
