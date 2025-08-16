@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <!-- list/List View -->
+    <record id="view_morpho_general_sections_list" model="ir.ui.view">
+        <field name="name">morpho.general.sections.list</field>
+        <field name="model">morpho.general.sections</field>
+        <field name="arch" type="xml">
+            <list string="General Sections" default_order="sequence asc">
+                <field name="sequence"/>
+                <field name="section_id"/>
+                <field name="title"/>
+                <field name="description"/>
+                <field name="image_ids"/>
+                <field name="color"/>
+            </list>
+        </field>
+    </record>
+</odoo>

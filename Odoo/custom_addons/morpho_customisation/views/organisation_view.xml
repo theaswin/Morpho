@@ -32,6 +32,35 @@
         <field name="arch" type="xml">
             <form>
                 <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_websites"
+                            type="object"
+                            string="Websites"
+                            class="oe_stat_button"
+                            icon="fa-globe">
+                        </button>
+                        <button name="action_view_providers"
+                            type="object"
+                            string="Providers"
+                            class="oe_stat_button"
+                            icon="fa-users">
+                        </button>
+
+                        <button name="action_view_payments"
+                            type="object"
+                            string="Payments"
+                            class="oe_stat_button"
+                            icon="fa-usd">
+                        </button>
+                        <button name="action_view_logs"
+                            type="object"
+                            string="Logs"
+                            class="oe_stat_button"
+                            icon="fa-list">
+                        
+                        </button>
+                    </div>
+
                     <group>
                         <group>
                         <h1>
@@ -45,27 +74,41 @@
 
                     <group>
                         <group>
-                            <field name="name" required="1" invisible="name != False"/>
-                            <field name="street"/>
-                            <field name="street2"/>
-                            <field name="city"/>
-                            <field name="state_id"/>
-                            <field name="zip"/>
-                            <field name="country_id"/>
-                            <field name="description"/>
+                            <field name="owner_id"/>
                         </group>
 
                         <group>
-                            <field name="phone"/>
-                            <field name="mobile"/>
-                            <field name="email"/>
-                            <field name="website"/>
-                            <field name="vat"/>
-                            <field name="company_type"/>
-                            <field name="status"/>
+                            <field name="support_id"/>
                         </group>
                     </group>
 
+                    <notebook>
+                        <page string="Address &amp; Contact" id="organisation_address" >
+                        <group>
+
+                            <group>
+                                <field name="street"/>
+                                <field name="street2"/>
+                                <field name="city"/>
+                                <field name="state_id"/>
+                                <field name="zip"/>
+                                <field name="country_id"/>
+                                <field name="description"/>
+                            </group>
+                            <group>
+                                <field name="phone"/>
+                                <field name="mobile"/>
+                                <field name="email"/>
+                                <field name="website"/>
+                                <field name="vat"/>
+                                <field name="company_type"/>
+                                <field name="status"/>
+                            </group>
+                        </group>
+
+
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>

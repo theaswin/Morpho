@@ -6,3 +6,4 @@ from . import ir_attachments
 from . import payment_configurations
 from . import payment_logs
 from . import payment_providers
+from . import sections

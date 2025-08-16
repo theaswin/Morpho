@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Kanban View -->
+    <record id="view_pay_providers_kanban" model="ir.ui.view">
+        <field name="name">pay.providers.kanban</field>
+        <field name="model">pay.providers</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_small_column" >
+                <field name="image"/>
+                <field name="name"/>
+                <field name="availability"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click o_kanban_card">
+                            <div class="o_kanban_details">
+                                <div class="o_kanban_image">
+                                    <img alt="Not Found" t-att-src="kanban_image('pay.providers', 'image', record.id.raw_value)" class="img-thumbnail"/>
+                                </div>
+                                <strong><field name="name"/></strong>
+                                <div>
+                                    <field name="availability" widget="boolean_toggle"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- list View -->
+    <record id="view_pay_providers_list" model="ir.ui.view">
+        <field name="name">pay.providers.list</field>
+        <field name="model">pay.providers</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="availability"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_pay_providers_form" model="ir.ui.view">
+        <field name="name">pay.providers.form</field>
+        <field name="model">pay.providers</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_config"
+                            type="object"
+                            class="oe_stat_button"
+                            string="Credentials"
+                            icon="fa-cogs">
+                        </button>
+                        <button name="action_view_logs"
+                            type="object"
+                            class="oe_stat_button"
+                            string="Logs"
+                            icon="fa-list">
+                        </button>
+                    </div>
+                    <group>
+                        <field name="image" widget="image"/>
+                        <field name="name"/>
+                        <field name="availability"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_pay_providers" model="ir.actions.act_window">
+        <field name="name">Payment Providers</field>
+        <field name="res_model">pay.providers</field>
+        <field name="view_mode">kanban,list,form</field>
+    </record>
+
+</odoo>

@@ -29,3 +29,45 @@ class Organisation(models.Model):
     validity_till = fields.Datetime(string="Validity Till")
     status = fields.Selection([('in_progress','In Progress'),('active','Active'),('expiring','Expiring'),
                                ('expaired','Expired'),('cancelled','Cancelled')])
+    
+
+
+    def action_view_websites(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'res_model': 'morpho.backend',
+            'name':"Websites",
+            'view_mode': 'list,form',
+            'domain': [('organisation_id', '=', self.id)],
+            'context': {'default_organisation_id': self.id},
+        }
+    
+    def action_view_payments(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'res_model': 'pay.logs',
+            'name':"Payments",
+            'view_mode': 'list,form',
+            'domain': [('organisation_id', '=', self.id)],
+            'context': {'default_organisation_id': self.id},
+        }
+
+
+    def action_view_logs(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'res_model': 'pay.logs',
+            'name':"Payment Logs",
+            'view_mode': 'list,form',
+            'domain': [('organisation_id', '=', self.id)],
+            'context': {'default_organisation_id': self.id},
+        }
+
+    def action_view_providers(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'res_model': 'pay.providers',
+            'name':"Payment Providers",
+            'view_mode': 'kanban,form',
+            'context': {},
+        }

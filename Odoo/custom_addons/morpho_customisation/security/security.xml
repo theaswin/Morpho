@@ -1,24 +1,111 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-
-
+    <record id="base.menu_apps" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, 0, [ref('base.group_system')])]"/>
+    </record>
+    
     <record id="group_organisation_user" model="res.groups">
         <field name="name">Organisation User</field>
     </record>
 
-    <record id="prganisation_org_rule" model="ir.rule">
-        <field name="name">Org: Same Organisation Only</field>
+    <record id="module_morpho_payments_category" model="ir.module.category">
+        <field name="name">Morpho</field>
+        <field name="description">Morpho Access Category</field>
+        <field name="sequence">10</field>
+    </record>
+
+    <record id="group_client_organisation_user" model="res.groups">
+        <field name="name">Payments</field>
+        <field name="category_id" ref="module_morpho_payments_category"/>
+    </record>
+    
+
+    <record id="organisation_org_rule" model="ir.rule">
+        <field name="name">Org: Seggregation</field>
         <field name="model_id" ref="model_client_organisation"/>
         <field name="groups" eval="[(4, ref('morpho_customisation.group_organisation_user'))]"/>
         <field name="domain_force">[('id', '=', user.organisation_id.id)]</field>
+        <field name="perm_read">True</field>
+	    <field name="perm_write">True</field>
+	    <field name="perm_create">True</field>
+	    <field name="perm_unlink">True</field>
     </record>
 
     <record id="contacts_client_org_rule" model="ir.rule">
-        <field name="name">Contacts: Same Organisation Only</field>
+        <field name="name">Contacts: Seggregation</field>
         <field name="model_id" ref="model_res_partner"/>
         <field name="groups" eval="[(4, ref('morpho_customisation.group_organisation_user'))]"/>
         <field name="domain_force">[('organisation_id', '=', user.organisation_id.id)]</field>
+        <field name="perm_read">True</field>
+	    <field name="perm_write">True</field>
+	    <field name="perm_create">True</field>
+	    <field name="perm_unlink">True</field>
     </record>
 
+    <record id="morpho_backend_client_org_rule" model="ir.rule">
+        <field name="name">Morpho: Seggregation</field>
+        <field name="model_id" ref="model_morpho_backend"/>
+        <field name="groups" eval="[(4, ref('morpho_customisation.group_organisation_user'))]"/>
+        <field name="domain_force">[('organisation_id', '=', user.organisation_id.id)]</field>
+        <field name="perm_read">True</field>
+	    <field name="perm_write">True</field>
+	    <field name="perm_create">True</field>
+	    <field name="perm_unlink">True</field>
+    </record>
 
+    <record id="pay_conf_client_org_rule" model="ir.rule">
+        <field name="name">Conf: Seggregation</field>
+        <field name="model_id" ref="model_pay_conf"/>
+        <field name="groups" eval="[(4, ref('morpho_customisation.group_organisation_user'))]"/>
+        <field name="domain_force">[('organisation_id', '=', user.organisation_id.id)]</field>
+        <field name="perm_read">True</field>
+	    <field name="perm_write">True</field>
+	    <field name="perm_create">True</field>
+	    <field name="perm_unlink">True</field>
+    </record>
+
+    <record id="pay_logs_client_org_rule" model="ir.rule">
+        <field name="name">Log: Seggregation</field>
+        <field name="model_id" ref="model_pay_logs"/>
+        <field name="groups" eval="[(4, ref('morpho_customisation.group_organisation_user'))]"/>
+        <field name="domain_force">[('organisation_id', '=', user.organisation_id.id)]</field>
+        <field name="perm_read">True</field>
+	    <field name="perm_write">True</field>
+	    <field name="perm_create">True</field>
+	    <field name="perm_unlink">True</field>
+    </record>
+
+    <record id="pay_providers_client_org_rule" model="ir.rule">
+        <field name="name">Providers: Seggregation</field>
+        <field name="model_id" ref="model_pay_providers"/>
+        <field name="groups" eval="[(4, ref('morpho_customisation.group_organisation_user'))]"/>
+        <field name="domain_force">[('availability', '=', True)]</field>
+        <field name="perm_read">True</field>
+	    <field name="perm_write">False</field>
+	    <field name="perm_create">False</field>
+	    <field name="perm_unlink">False</field>
+    </record>
+
+    <record id="section_sections_client_org_rule" model="ir.rule">
+        <field name="name">Sections Conf: Seggregation</field>
+        <field name="model_id" ref="model_section_sections"/>
+        <field name="groups" eval="[(4, ref('morpho_customisation.group_organisation_user'))]"/>
+        <field name="domain_force">[('organisation_id', '=', user.organisation_id.id)]</field>
+        <field name="perm_read">True</field>
+	    <field name="perm_write">True</field>
+	    <field name="perm_create">True</field>
+	    <field name="perm_unlink">True</field>
+    </record>
+
+    <!-- if we want we can use -->
+    <record id="morpho_general_sections_client_org_rule" model="ir.rule">
+        <field name="name">Generak Sections: Seggregation</field>
+        <field name="model_id" ref="model_morpho_general_sections"/>
+        <field name="groups" eval="[(4, ref('morpho_customisation.group_organisation_user'))]"/>
+        <field name="domain_force">[('morpho_backend_id.organisation_id', '=', user.organisation_id.id)]</field>
+        <field name="perm_read">True</field>
+	    <field name="perm_write">True</field>
+	    <field name="perm_create">True</field>
+	    <field name="perm_unlink">True</field>
+    </record>
 </odoo>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
 
+
     <menuitem id="menu_organisation_root" 
         web_icon = "morpho_customisation,static/src/image/organisations.png"
         name="Organisations"
@@ -13,7 +14,7 @@
         sequence="2"
         />
 
-    <menuitem id="morpho_main_menu" name="Morpho" 
+    <menuitem id="morpho_main_menu" name="Website" 
         web_icon = "morpho_customisation,static/src/image/morpho.png"
         sequence="2"/>
 
@@ -22,6 +23,19 @@
         parent="morpho_main_menu" 
         action="action_morpho_backend" 
         sequence="1"/>
+
+    <menuitem id="morpho_backend_configuraion" 
+        name="Configurations" 
+        parent="morpho_main_menu" 
+        sequence="3"/>
+
+    <menuitem id="morpho_sections_configurations" 
+        name="Sections" 
+        parent="morpho_backend_configuraion" 
+        action="action_section_sections"
+        sequence="1"/>
+
+        
 
     <menuitem id="morpho_images" name="Attachments" 
         web_icon = "morpho_customisation,static/src/image/attachments.png"
@@ -34,8 +48,32 @@
         sequence="1"/>
     
 
+    <!-- Payments -->
+    <menuitem id="menu_payment_root" 
+        web_icon = "morpho_customisation,static/src/image/ruppe.png"
+        name="Payment"
+        sequence="4"
+        groups="morpho_customisation.group_client_organisation_user"
+        />
+
+    <menuitem id="menu_payment_providers" 
+        name="Payment Providers" 
+        parent="menu_payment_root"
+        action="action_pay_providers"
+        sequence="1"
+        />
+
+    <menuitem id="morpho_payment_configuraion" 
+        name="Configurations" 
+        parent="menu_payment_root" 
+        sequence="2"/>
 
 
-        
+    <menuitem id="morpho_payment_configurations" 
+        name="Payment Credentials" 
+        parent="morpho_payment_configuraion" 
+        action="action_pay_conf"
+        sequence="1"/>
+
 </odoo>
 
