@@ -73,7 +73,7 @@
                             </group>
                         </page>
 
-                    <page string="General" id="all_sections_page">
+                    <page string="Sections" id="all_sections_page">
                         <notebook>
                             <!-- General Sections tab -->
                             <page string="General" id="general_sections">
@@ -83,7 +83,7 @@
                                         <field name="title"/>
                                         <field name="description"/>
                                         <field name="design"/>
-                                        <field name="image_ids" widget="many2many_tags"/>
+                                        <field name="image_ids" domain="[('mimetype','in',['image/png'])]" widget="many2many_tags"/>
                                         <field name="color"/>
                                     </list>
                                 </field>
@@ -107,7 +107,7 @@
                                         <field name="title"/>
                                         <field name="description"/>
                                         <field name="design"/>
-                                        <field name="image_ids" widget="many2many_tags"/>
+                                        <field name="image_ids" domain="[('mimetype','in',['image/png'])]" widget="many2many_tags"/>
                                         <field name="color"/>
                                     </list>
                                 </field>
