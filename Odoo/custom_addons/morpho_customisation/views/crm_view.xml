@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_crm_form_inherit_morpho" model="ir.ui.view">
+        <field name="name">crm.lead.form.inherit.morpho</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@class='mt48']/label[@for='contact_name_page_lead']" position="before">
+                <p  style="color:green">Owner Details</p> <br/>
+            </xpath>
+            <xpath expr="//group[@class='mt48']" position="inside">
+                <p  style="color:green">Support Details</p> <br/>
+                <label for="support_name_page_lead"/>
+                    <div class="o_row">
+                        <field name="support_name" id="support_name_page_lead" required="1"/>
+                        <field name="support_title_id" required="1" placeholder="Title" domain="[]" options="{&quot;no_open&quot;: True}"/>
+                    </div>
+                    <field name="support_job_position" required="1"/>
+                    <label for="mobile_page_lead" class="oe_inline"/>
+                    <div class="o_row o_row_readonly">
+                        <button name="phone_action_blacklist_remove" class="fa fa-ban text-danger" title="This phone number is blacklisted for SMS Marketing. Click to unblacklist." type="object" context="{'default_phone': mobile}" groups="base.group_user" invisible="not mobile_blacklisted"/>
+                        <field name="support_mobile" required="1" id="mobile_page_lead" widget="phone"/>
+                    </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>
