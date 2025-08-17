@@ -20,7 +20,7 @@
     'author': 'Aswin Nath',
     'website': 'https://theaswin.github.io/personal_website/',
     'license': "LGPL-3",
-    'depends': ['base','contacts'],
+    'depends': ['base','contacts','crm','sale_management'],
     'data': [
         'security/ir.model.access.csv',
         'security/security.xml',
@@ -32,6 +32,7 @@
         'views/all_sections_list_view.xml',
         'views/res_partner_view.xml',
         'views/res_users_view.xml',
+        'views/crm_view.xml',
         'views/menu_view.xml',
         ],
     'installable': True,

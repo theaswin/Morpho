@@ -36,7 +36,7 @@ def whole_data(model):
             datas[field_name] = value
     return datas
 
-class webController(http.Controller):
+class UIController(http.Controller):
 
     @http.route(['/get/web_data'], type='json', auth='public', methods=['GET'], csrf=False, cors="*")
     def get_non_binary_data(self, **kwargs):

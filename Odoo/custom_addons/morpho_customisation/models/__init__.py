@@ -7,3 +7,6 @@ from . import payment_configurations
 from . import payment_logs
 from . import payment_providers
 from . import sections
+from . import crm
+from . import product_product
+from . import product_template

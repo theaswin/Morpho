@@ -13,7 +13,7 @@ def format_url(raw_url):
     else:
         return "Invalid URL"
     
-class webController(http.Controller):
+class PaymentController(http.Controller):
 
     # Razorpay
     @http.route(['/get/generate_order_id/'], type='json', auth='public', methods=['GET'], csrf=False, cors="*")
