@@ -9,9 +9,15 @@
         />
 
     <menuitem id="menu_organisatios" 
-        name="All Organisations" parent="menu_organisation_root"
-        action="action_organisations"
+        name="Organisations" parent="menu_organisation_root"
+        action="action_organisation"
         sequence="2"
+        />
+
+    <menuitem id="menu_organisation_contacts" 
+        name="Contacts" parent="menu_organisation_root"
+        action="action_client_contact"
+        sequence="3"
         />
 
     <menuitem id="morpho_main_menu" name="Website" 
@@ -53,7 +59,7 @@
         web_icon = "morpho_customisation,static/src/image/ruppe.png"
         name="Payment"
         sequence="4"
-        groups="morpho_customisation.group_client_organisation_user"
+        groups="morpho_customisation.group_wcms_payment_users,morpho_customisation.group_edms_payment_users"
         />
 
     <menuitem id="menu_payment_providers" 

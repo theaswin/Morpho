@@ -1,6 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_morpho_backend,access_morpho_backend,model_morpho_backend,,1,1,1,1
-access_client_organisation,access_client_organisation,model_client_organisation,,1,1,1,1
 access_pay_providers,access_pay_providers,model_pay_providers,,1,1,1,1
 access_pay_conf,access_pay_conf,model_pay_conf,,1,1,1,1
 access_pay_logs,access_pay_logs,model_pay_logs,,1,1,1,1

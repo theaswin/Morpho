@@ -5,9 +5,15 @@
         <field name="model">crm.lead</field>
         <field name="inherit_id" ref="crm.crm_lead_view_form"/>
         <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_set_won_rainbowman']" position="after">
+                <button name="action_initialise" invisible="done == True" string="Done" type="object"  class="btn-success"/>
+            </xpath>
+
             <xpath expr="//group[@class='mt48']/label[@for='contact_name_page_lead']" position="before">
                 <p  style="color:green">Owner Details</p> <br/>
+                <field name="owner_login"/>
             </xpath>
+            
             <xpath expr="//group[@class='mt48']" position="inside">
                 <p  style="color:green">Support Details</p> <br/>
                 <label for="support_name_page_lead"/>
@@ -21,6 +27,9 @@
                         <button name="phone_action_blacklist_remove" class="fa fa-ban text-danger" title="This phone number is blacklisted for SMS Marketing. Click to unblacklist." type="object" context="{'default_phone': mobile}" groups="base.group_user" invisible="not mobile_blacklisted"/>
                         <field name="support_mobile" required="1" id="mobile_page_lead" widget="phone"/>
                     </div>
+                        <field name="support_login" required="1"/>
+
+                    
             </xpath>
         </field>
     </record>

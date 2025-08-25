@@ -51,7 +51,9 @@
                             </div>
                         </group>
                         <group>
-                            <field name="organisation_id" readonly="status == 'live'"/>
+                        <field name="organisation_id"
+                            domain="[('is_company','=',True)]"
+                            readonly="status == 'live'"/>               
                         </group>
                     </group>
 
