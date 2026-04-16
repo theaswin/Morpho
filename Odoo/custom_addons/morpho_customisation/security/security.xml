@@ -9,7 +9,7 @@
             <field name="name">Customer Org Access</field>
             <field name="model_id" ref="model_org_organisation"/>
             <field name="groups" eval="[(4, ref('morpho_customisation.group_customer_limited_access'))]"/>
-            <field name="domain_force">[('id', 'in', user.organisation_ids.ids)]</field>
+            <field name="domain_force">[('id', 'in', user.partner_id.organisation_ids.ids)]</field>
             <field name="perm_read" eval="True"/>
             <field name="perm_write" eval="False"/>
             <field name="perm_create" eval="False"/>

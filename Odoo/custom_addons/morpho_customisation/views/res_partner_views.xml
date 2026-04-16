@@ -20,6 +20,14 @@
             <xpath expr="//field[@name='parent_id']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
+            <xpath expr="//form/sheet" position="before">
+                <header>
+                    <button name="%(action_partner_whatsapp_wizard)d" string="Send WhatsApp" type="action" class="btn-primary"/>
+                </header>
+            </xpath>
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="%(action_partner_whatsapp_wizard)d" string="WhatsApp" type="action" class="oe_stat_button" icon="fa-whatsapp"/>
+            </xpath>
             <xpath expr="//field[@name='function']" position="after">
                 <field name="organisation_ids" widget="many2many_tags" options="{'no_create': True}"/>
                 <field name="date_of_joining"/>

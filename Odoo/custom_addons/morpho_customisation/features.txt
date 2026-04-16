@@ -1,0 +1,8 @@
+whatsapp message notification
+Owner Dashboard
+    Total occupancy %
+    Monthly revenue
+    Pending dues
+    Room availability
+    Expenses vs income
+
