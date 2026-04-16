@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_hostel_root" name="Hostel Management" sequence="10" web_icon="base,static/description/icon.png"/>
+    <!-- Kanban View -->
+    <record id="view_organisation_kanban" model="ir.ui.view">
+        <field name="name">org.organisation.kanban</field>
+        <field name="model">org.organisation</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile">
+                <field name="name"/>
+                <field name="location"/>
+                <field name="mobile"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_top">
+                                <div class="o_kanban_record_headings">
+                                    <strong class="o_kanban_record_title"><field name="name"/></strong>
+                                </div>
+                            </div>
+                            <div class="o_kanban_record_body">
+                                <div><field name="location"/></div>
+                                <div><field name="mobile"/></div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_organisation_form" model="ir.ui.view">
+        <field name="name">org.organisation.form</field>
+        <field name="model">org.organisation</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Organisation Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="vat"/>
+                            <field name="location"/>
+                        </group>
+                        <group>
+                            <field name="mobile"/>
+                            <field name="owner_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Rooms">
+                            <field name="room_ids" context="{'default_organisation_id': id}">
+                                <kanban>
+                                    <field name="room_number"/>
+                                    <templates>
+                                        <t t-name="card">
+                                            <div class="oe_kanban_global_click">
+                                                <div class="o_kanban_record_top">
+                                                    <strong>Room: <field name="room_number"/></strong>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </templates>
+                                </kanban>
+                                <form>
+                                    <group>
+                                        <field name="room_number"/>
+                                        <field name="organisation_id" invisible="1"/>
+                                    </group>
+                                    <separator string="Beds" invisible="not id"/>
+                                    <field name="bed_ids" invisible="not id">
+                                        <kanban>
+                                            <field name="partner_id"/>
+                                            <templates>
+                                                <t t-name="card">
+                                                    <div class="oe_kanban_global_click">
+                                                        <div class="o_kanban_record_top">
+                                                            <strong>Resident: <field name="partner_id"/></strong>
+                                                        </div>
+                                                    </div>
+                                                </t>
+                                            </templates>
+                                        </kanban>
+                                    </field>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_organisation" model="ir.actions.act_window">
+        <field name="name">Organisations</field>
+        <field name="res_model">org.organisation</field>
+        <field name="view_mode">kanban,list,form</field>
+    </record>
+</odoo>
