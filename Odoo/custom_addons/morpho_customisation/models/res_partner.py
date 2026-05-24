@@ -18,3 +18,4 @@ class ResUsers(models.Model):
     _inherit = 'res.users'
 
     organisation_ids = fields.Many2many('org.organisation', related='partner_id.organisation_ids', readonly=False, string='Organisations', default=lambda self: self.env.user.organisation_ids.ids)
+

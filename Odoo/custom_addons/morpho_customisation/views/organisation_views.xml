@@ -6,10 +6,14 @@
         <field name="name">org.organisation.kanban</field>
         <field name="model">org.organisation</field>
         <field name="arch" type="xml">
-            <kanban class="o_kanban_mobile">
+            <kanban class="o_kanban_mobile" create="0">
                 <field name="name"/>
                 <field name="location"/>
                 <field name="mobile"/>
+                <field name="total_rooms"/>
+                <field name="total_beds"/>
+                <field name="occupied_count"/>
+                <field name="vacant_count"/>
                 <templates>
                     <t t-name="card">
                         <div class="oe_kanban_global_click">
@@ -19,8 +23,28 @@
                                 </div>
                             </div>
                             <div class="o_kanban_record_body">
-                                <div><field name="location"/></div>
-                                <div><field name="mobile"/></div>
+                                <div class="text-muted mb-2">
+                                    <i class="fa fa-map-marker me-1"/><field name="location"/>
+                                    <span class="ms-3"><i class="fa fa-phone me-1"/><field name="mobile"/></span>
+                                </div>
+                                <div class="d-flex justify-content-between mt-2">
+                                    <div class="text-center">
+                                        <div class="fw-bold text-primary"><field name="total_rooms"/></div>
+                                        <small class="text-muted">Rooms</small>
+                                    </div>
+                                    <div class="text-center">
+                                        <div class="fw-bold text-info"><field name="total_beds"/></div>
+                                        <small class="text-muted">Beds</small>
+                                    </div>
+                                    <div class="text-center">
+                                        <div class="fw-bold text-danger"><field name="occupied_count"/></div>
+                                        <small class="text-muted">Occupied</small>
+                                    </div>
+                                    <div class="text-center">
+                                        <div class="fw-bold text-success"><field name="vacant_count"/></div>
+                                        <small class="text-muted">Vacant</small>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </t>
@@ -29,16 +53,30 @@
         </field>
     </record>
 
+    <!-- list View -->
+    <record id="view_organisation_list" model="ir.ui.view">
+        <field name="name">org.organisation.list</field>
+        <field name="model">org.organisation</field>
+        <field name="arch" type="xml">
+            <list create="0">
+                <field name="name"/>
+                <field name="location"/>
+                <field name="mobile"/>
+                <field name="owner_id"/>
+            </list>
+        </field>
+    </record>
+
     <!-- Form View -->
     <record id="view_organisation_form" model="ir.ui.view">
         <field name="name">org.organisation.form</field>
         <field name="model">org.organisation</field>
         <field name="arch" type="xml">
-            <form>
+            <form create="0">
                 <sheet>
                     <div class="oe_title">
                         <h1>
-                            <field name="name" placeholder="Organisation Name"/>
+                            <field name="name" required="1" placeholder="Organisation Name"/>
                         </h1>
                     </div>
                     <group>
@@ -56,11 +94,30 @@
                             <field name="room_ids" context="{'default_organisation_id': id}">
                                 <kanban>
                                     <field name="room_number"/>
+                                    <field name="vacancy_count"/>
                                     <templates>
                                         <t t-name="card">
-                                            <div class="oe_kanban_global_click">
-                                                <div class="o_kanban_record_top">
-                                                    <strong>Room: <field name="room_number"/></strong>
+                                            <div class="oe_kanban_global_click oe_kanban_card">
+                                                <div class="oe_kanban_content">
+                                                    <div class="o_kanban_record_top mb-2">
+                                                        <div class="o_kanban_record_headings">
+                                                            <strong class="o_kanban_record_title text-primary">
+                                                                <i class="fa fa-door-open mr-2"/>
+                                                                Room: <field name="room_number"/>
+                                                            </strong>
+                                                        </div>
+                                                    </div>
+                                                    <div class="o_kanban_record_body">
+                                                        <div class="d-flex justify-content-between align-items-center">
+                                                            <div class="text-muted">
+                                                                <i class="fa fa-bed mr-1"/>
+                                                                Vacancy
+                                                            </div>
+                                                            <span t-attf-class="font-weight-bold #{record.vacancy_count.raw_value > 0 ? 'text-success' : 'text-danger'}" style="font-size: 1.1rem;">
+                                                                <field name="vacancy_count"/>
+                                                            </span>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </t>
@@ -75,29 +132,29 @@
                                     <field name="bed_ids" invisible="not id">
                                         <kanban>
                                             <field name="partner_id"/>
-                                            <field name="partner_street"/>
-                                            <field name="partner_city"/>
                                             <field name="partner_image"/>
                                             <templates>
                                                 <t t-name="card">
-                                                    <div class="oe_kanban_global_click d-flex align-items-center justify-content-between p-2">
-                                                        <div class="o_kanban_record_body">
-                                                            <div class="o_kanban_record_top">
-                                                                <strong class="o_kanban_record_title">
-                                                                    <field name="partner_id"/>
-                                                                </strong>
+                                                    <div class="oe_kanban_global_click oe_kanban_card">
+                                                        <div class="oe_kanban_content d-flex align-items-start">
+                                                            <div class="o_kanban_image mr-4">
+                                                                <field name="partner_image" widget="image" class="oe_avatar" options="{'zoom': true, 'preview_image': 'partner_image', 'size': [64, 64]}" t-if="record.partner_id.raw_value"/>
+                                                                <div t-else="" class="bg-light d-flex align-items-center justify-content-center border rounded" style="width: 64px; height: 64px;">
+                                                                    <i class="fa fa-bed fa-2x text-muted"/>
+                                                                </div>
                                                             </div>
-                                                            <div class="text-muted small">
-                                                                <t t-if="record.partner_street.raw_value">
-                                                                    <field name="partner_street"/><br/>
-                                                                </t>
-                                                                <t t-if="record.partner_city.raw_value">
-                                                                    <field name="partner_city"/>
-                                                                </t>
+                                                            <div class="o_kanban_details flex-grow-1">
+                                                                <div class="mt-2 mb-2">
+                                                                    <t t-if="record.partner_id.raw_value">
+                                                                        <i class="fa fa-user mr-1 text-info"/>
+                                                                        <strong> Resident : </strong> <field name="partner_id"/>
+                                                                    </t>
+                                                                    <t t-else="">
+                                                                        <i class="fa fa-bed mr-1 text-danger"/>
+                                                                        <span class="text-danger font-weight-bold"> VACANT </span>
+                                                                    </t>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="o_kanban_record_right ml-2">
-                                                            <field name="partner_image" widget="image" class="oe_avatar" options="{'zoom': true, 'preview_image': 'partner_image', 'size': [60, 60]}"/>
                                                         </div>
                                                     </div>
                                                 </t>

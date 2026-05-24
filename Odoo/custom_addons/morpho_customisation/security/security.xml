@@ -1,52 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <record id="group_customer_limited_access" model="res.groups">
-            <field name="name">Customer Limited Access</field>
-        </record>
-    
-        <record id="rule_customer_org_access" model="ir.rule">
-            <field name="name">Customer Org Access</field>
+        <!-- ============================================== -->
+        <!--  USER RULES (Restricted to their Organisation) -->
+        <!-- ============================================== -->
+        <record id="rule_user_org_access" model="ir.rule">
+            <field name="name">User Org Access</field>
             <field name="model_id" ref="model_org_organisation"/>
-            <field name="groups" eval="[(4, ref('morpho_customisation.group_customer_limited_access'))]"/>
+            <field name="groups" eval="[(4, ref('base.group_user'))]"/>
             <field name="domain_force">[('id', 'in', user.partner_id.organisation_ids.ids)]</field>
             <field name="perm_read" eval="True"/>
-            <field name="perm_write" eval="False"/>
-            <field name="perm_create" eval="False"/>
-            <field name="perm_unlink" eval="False"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
         </record>
 
-        <record id="rule_customer_partner_access" model="ir.rule">
-            <field name="name">Customer Partner Access</field>
+        <record id="rule_user_partner_access" model="ir.rule">
+            <field name="name">User Partner Access</field>
             <field name="model_id" ref="base.model_res_partner"/>
-            <field name="groups" eval="[(4, ref('morpho_customisation.group_customer_limited_access'))]"/>
-            <field name="domain_force">['|',('organisation_ids', 'in', user.organisation_ids.ids),('id','in',[2,3])]</field>
+            <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+            <field name="domain_force">[('organisation_ids', 'in', user.organisation_ids.ids)]</field>
             <field name="perm_read" eval="True"/>
-            <field name="perm_write" eval="False"/>
-            <field name="perm_create" eval="False"/>
-            <field name="perm_unlink" eval="False"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
         </record>
 
-        <record id="rule_customer_room_access" model="ir.rule">
-            <field name="name">Customer Room Access</field>
+        <record id="rule_user_room_access" model="ir.rule">
+            <field name="name">User Room Access</field>
             <field name="model_id" ref="model_hostel_room"/>
-            <field name="groups" eval="[(4, ref('morpho_customisation.group_customer_limited_access'))]"/>
+            <field name="groups" eval="[(4, ref('base.group_user'))]"/>
             <field name="domain_force">[('organisation_id', 'in', user.organisation_ids.ids)]</field>
             <field name="perm_read" eval="True"/>
-            <field name="perm_write" eval="False"/>
-            <field name="perm_create" eval="False"/>
-            <field name="perm_unlink" eval="False"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
         </record>
 
-        <record id="rule_customer_bed_access" model="ir.rule">
-            <field name="name">Customer Bed Access</field>
+        <record id="rule_user_bed_access" model="ir.rule">
+            <field name="name">User Bed Access</field>
             <field name="model_id" ref="model_hostel_bed"/>
-            <field name="groups" eval="[(4, ref('morpho_customisation.group_customer_limited_access'))]"/>
+            <field name="groups" eval="[(4, ref('base.group_user'))]"/>
             <field name="domain_force">[('organisation_id', 'in', user.organisation_ids.ids)]</field>
             <field name="perm_read" eval="True"/>
-            <field name="perm_write" eval="False"/>
-            <field name="perm_create" eval="False"/>
-            <field name="perm_unlink" eval="False"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
         </record>
+
+        <!-- ============================================== -->
+        <!--  ADMINISTRATOR RULES (Full Access)             -->
+        <!-- ============================================== -->
+        <record id="rule_admin_org_access" model="ir.rule">
+            <field name="name">Admin Org Access</field>
+            <field name="model_id" ref="model_org_organisation"/>
+            <field name="groups" eval="[(4, ref('base.group_erp_manager'))]"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+
+        <record id="rule_admin_partner_access" model="ir.rule">
+            <field name="name">Admin Partner Access</field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="groups" eval="[(4, ref('base.group_erp_manager'))]"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+
+        <record id="rule_admin_room_access" model="ir.rule">
+            <field name="name">Admin Room Access</field>
+            <field name="model_id" ref="model_hostel_room"/>
+            <field name="groups" eval="[(4, ref('base.group_erp_manager'))]"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+
+        <record id="rule_admin_bed_access" model="ir.rule">
+            <field name="name">Admin Bed Access</field>
+            <field name="model_id" ref="model_hostel_bed"/>
+            <field name="groups" eval="[(4, ref('base.group_erp_manager'))]"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+
+
+
     </data>
 </odoo>

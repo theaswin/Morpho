@@ -1,5 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <record id="view_hostel_bed_kanban" model="ir.ui.view">
+        <field name="name">hostel.bed.kanban</field>
+        <field name="model">hostel.bed</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile">
+                <field name="partner_id"/>
+                <field name="room_id"/>
+                <field name="organisation_id"/>
+                <field name="partner_image"/>
+                <templates>
+                    <t t-name="card">
+                        <div t-attf-class="oe_kanban_global_click oe_kanban_card">
+                            <div class="oe_kanban_content d-flex align-items-start">
+                                <div class="o_kanban_image mr-4">
+                                    <field name="partner_image" widget="image" class="oe_avatar" options="{'zoom': true, 'preview_image': 'partner_image', 'size': [64, 64]}" t-if="record.partner_id.raw_value"/>
+                                    <div t-else="" class="bg-light d-flex align-items-center justify-content-center border rounded" style="width: 64px; height: 64px;">
+                                        <i class="fa fa-bed fa-2x text-muted"/>
+                                    </div>
+                                </div>
+                                <div class="o_kanban_details flex-grow-1">
+                                    <div class="o_kanban_record_top mb-2">
+                                        <strong class="o_kanban_record_title text-primary">
+                                            <i class="fa fa-hospital mr-1"/>
+                                            <field name="organisation_id"/>
+                                        </strong>
+                                    </div>
+                                    <div class="text-muted mb-2">
+                                        <i class="fa fa-door-open mr-1"/>
+                                        <strong>Room: </strong> <field name="room_id"/>
+                                    </div>
+                                    <div class="mt-2">
+                                        <t t-if="record.partner_id.raw_value">
+                                            <i class="fa fa-user mr-1 text-info"/>
+                                            <strong> Resident : </strong> <field name="partner_id"/>
+                                        </t>
+                                        <t t-else="">
+                                            <i class="fa fa-bed mr-1 text-danger"/>
+                                            <span class="text-danger font-weight-bold"> VACANT </span>
+                                        </t>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
     <record id="view_hostel_bed_form" model="ir.ui.view">
         <field name="name">hostel.bed.form</field>
         <field name="model">hostel.bed</field>
@@ -7,8 +56,8 @@
             <form>
                 <sheet>
                     <group>
+                        <field name="room_id" readonly="1" />
                         <field name="partner_id" string="Resident"/>
-                        <field name="room_id"/>
                     </group>
                 </sheet>
             </form>
@@ -17,6 +66,6 @@
     <record id="action_hostel_bed" model="ir.actions.act_window">
         <field name="name">Beds</field>
         <field name="res_model">hostel.bed</field>
-        <field name="view_mode">list,form,kanban</field>
+        <field name="view_mode">kanban,list,form</field>
     </record>
 </odoo>

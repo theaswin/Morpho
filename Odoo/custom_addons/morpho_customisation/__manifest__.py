@@ -18,6 +18,7 @@ Hostel Management System
         'views/room_views.xml',
         'views/bed_views.xml',
         'wizard/partner_whatsapp_wizard_views.xml',
+        'wizard/create_organisation_wizard_views.xml',
         'views/res_partner_views.xml',
         'views/menu_views.xml',
     ],

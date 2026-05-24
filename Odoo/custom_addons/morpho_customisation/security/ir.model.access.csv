@@ -4,3 +4,4 @@ access_hostel_room_user,hostel.room.user,model_hostel_room,base.group_user,1,1,1
 access_hostel_bed_user,hostel.bed.user,model_hostel_bed,base.group_user,1,1,1,1
 access_res_partner_user,res.partner.user,base.model_res_partner,base.group_user,1,1,1,1
 access_partner_whatsapp_wizard,partner_whatsapp_wizard,model_partner_whatsapp_wizard,base.group_user,1,1,1,1
+access_create_organisation_wizard,create.organisation.wizard,model_create_organisation_wizard,base.group_user,1,1,1,1

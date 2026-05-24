@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <menuitem id="menu_hostel_organisation" name="Organisations" parent="menu_hostel_root" action="action_organisation" sequence="10"/>
+    <menuitem id="menu_create_organisation" groups="base.group_system" name="Create New Organisation" parent="menu_hostel_root" action="action_create_organisation_wizard" sequence="11"/>
     <menuitem id="menu_hostel_management" name="Management" parent="menu_hostel_root" sequence="15"/>
     <menuitem id="menu_hostel_room" name="Rooms" parent="menu_hostel_management" action="action_hostel_room" sequence="10"/>
     <menuitem id="menu_hostel_bed" name="Beds" parent="menu_hostel_management" action="action_hostel_bed" sequence="20"/>
