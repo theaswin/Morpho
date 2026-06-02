@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title">
+  <title>Morpho butterfly logo</title>
+  <rect width="512" height="512" rx="72" fill="#ffffff"/>
+  <path
+    d="M255.4 286.8C238.3 226 193.5 161.8 137 125.7 96.2 99.7 62.7 99.4 49.3 124.7c-11.8 22.4-4.7 50.8 21.4 85.1 12 15.8 18.9 34.4 20.5 55.9 2.5 34 22.8 57.5 57.3 63.4 8.3 1.4 17.6 1.8 27.9 1.2-31.8 21.9-48.7 53.4-42.9 87.4 6.4 37.6 34.6 60.9 69.3 57.2 38.6-4.1 69.5-40.5 71.2-88.4 1-29.4-5.2-62.1-18.6-99.7Z"
+    fill="none"
+    stroke="#0969e8"
+    stroke-width="31"
+    stroke-linejoin="round"
+    stroke-linecap="round"/>
+  <path
+    d="M256.6 286.8C273.7 226 318.5 161.8 375 125.7c40.8-26 74.3-26.3 87.7-.9 11.8 22.4 4.7 50.8-21.4 85.1-12 15.8-18.9 34.4-20.5 55.9-2.5 34-22.8 57.5-57.3 63.4-8.3 1.4-17.6 1.8-27.9 1.2 31.8 21.9 48.7 53.4 42.9 87.4-6.4 37.6-34.6 60.9-69.3 57.2-38.6-4.1-69.5-40.5-71.2-88.4-1-29.4 5.2-62.1 18.6-99.7Z"
+    fill="none"
+    stroke="#0969e8"
+    stroke-width="31"
+    stroke-linejoin="round"
+    stroke-linecap="round"/>
+  <path
+    d="M100 127c30.5-1.9 72.5 20 108.5 65.9 24.2 30.8 39.2 66.9 44.7 107.4"
+    fill="none"
+    stroke="#dcecfb"
+    stroke-width="23"
+    stroke-linecap="round"
+    opacity=".95"/>
+  <path
+    d="M412 127c-30.5-1.9-72.5 20-108.5 65.9-24.2 30.8-39.2 66.9-44.7 107.4"
+    fill="none"
+    stroke="#dcecfb"
+    stroke-width="23"
+    stroke-linecap="round"
+    opacity=".95"/>
+</svg>

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}{{ room.name }} | {{ hostel.name }}{% endblock %}
+
+{% block content %}
+<section class="room-header">
+    <a class="back-link" href="{% url 'hostels:hostel_detail' hostel.slug %}">Back to {{ hostel.name }}</a>
+    <p class="eyebrow">{{ hostel.name }} · {{ room.floor }}</p>
+    <h1>Room {{ room.name }}</h1>
+    <p>{{ room.type }} · {{ room.counts.vacant }} of {{ room.counts.total }} beds vacant</p>
+</section>
+
+<section class="bed-panel" aria-label="Beds in room {{ room.name }}">
+    <div class="bed-legend">
+        <span><i class="legend-dot vacant"></i>Vacant</span>
+        <span><i class="legend-dot occupied"></i>Fulfilled</span>
+    </div>
+
+    <div class="bed-grid">
+        {% for bed in room.beds %}
+            <article class="bed-card {{ bed.status }}">
+                <span class="bed-icon" aria-hidden="true"></span>
+                <h2>{{ bed.code }}</h2>
+                <p>{% if bed.status == "vacant" %}Vacant{% else %}Fulfilled{% endif %}</p>
+                <p class="bed-price">Rs. {{ room.price }} / month</p>
+            </article>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

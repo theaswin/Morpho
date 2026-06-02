@@ -1,0 +1,60 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Morpho{% endblock %}</title>
+    <link rel="icon" type="image/svg+xml" href="{% static 'img/morpho-butterfly.svg' %}">
+    <link rel="stylesheet" href="{% static 'css/site.css' %}">
+</head>
+<body>
+    <header class="site-header">
+        <a class="brand" href="{% url 'hostels:home' %}">
+            <img class="brand-mark" src="{% static 'img/morpho-butterfly.svg' %}" alt="Morpho">
+            <span>Morpho</span>
+        </a>
+        <nav class="main-nav" aria-label="Primary">
+            <a href="{% url 'hostels:home' %}">Home</a>
+            <span>Availability</span>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-grid">
+            <div>
+                <a class="brand footer-brand" href="{% url 'hostels:home' %}">
+                    <img class="brand-mark" src="{% static 'img/morpho-butterfly.svg' %}" alt="Morpho">
+                    <span>Morpho</span>
+                </a>
+                <p>
+                    Morpho helps students and hostel teams view availability, compare rooms,
+                    and track bed status from one simple dashboard.
+                </p>
+            </div>
+            <div>
+                <h2>Purpose</h2>
+                <p>
+                    This portal is built to make hostel discovery clearer with location,
+                    pricing, reviews, rooms, and live vacancy indicators.
+                </p>
+            </div>
+            <div>
+                <h2>Current Scope</h2>
+                <p>
+                    Authentication and API integration will be added later. The current
+                    version uses dummy hostel, room, and bed data for layout testing.
+                </p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>Morpho Hostel Management</span>
+            <span>Dummy data mode</span>
+        </div>
+    </footer>
+</body>
+</html>

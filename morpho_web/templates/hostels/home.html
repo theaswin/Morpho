@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+
+{% block title %}Hostels | Morpho{% endblock %}
+
+{% block content %}
+<section class="home-hero">
+    <div class="page-intro">
+        <p class="eyebrow">Welcom To</p>
+        <h1>Morpho</h1>
+        <p>Review each hostel, see availability, and open rooms to inspect bed-level status.</p>
+    </div>
+
+    <div class="stats-header" aria-label="Morpho summary">
+        <div class="stats-track">
+            <article class="stats-slide">
+                <span>{{ stats.hostels }}</span>
+                <p>Hostels available across Morpho</p>
+            </article>
+            <article class="stats-slide">
+                <span>{{ stats.satisfied_customers }}+</span>
+                <p>Satisfied customers using hostel discovery</p>
+            </article>
+            <article class="stats-slide">
+                <span>{{ stats.verified_hostels }}</span>
+                <p>Verified hostels ready for booking review</p>
+            </article>
+            <article class="stats-slide">
+                <span>{{ stats.vacant_beds }}/{{ stats.total_beds }}</span>
+                <p>Beds vacant right now in dummy availability</p>
+            </article>
+            <article class="stats-slide">
+                <span>{{ stats.average_review }}/5</span>
+                <p>Average review across listed hostels</p>
+            </article>
+        </div>
+        <div class="stats-dots" aria-hidden="true">
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+        </div>
+    </div>
+</section>
+
+<div class="listing-layout">
+    <aside class="filter-sidebar">
+        <form class="filter-bar" method="get" aria-label="Hostel filters">
+            <label>
+                <span>Category</span>
+                <select name="gender">
+                    <option value="">Ladies and gents</option>
+                    <option value="ladies" {% if filters.gender == "ladies" %}selected{% endif %}>Ladies</option>
+                    <option value="gents" {% if filters.gender == "gents" %}selected{% endif %}>Gents</option>
+                </select>
+            </label>
+            <label>
+                <span>Min price</span>
+                <input type="number" name="min_price" min="0" step="100" value="{{ filters.min_price }}" placeholder="5000">
+            </label>
+            <label>
+                <span>Max price</span>
+                <input type="number" name="max_price" min="0" step="100" value="{{ filters.max_price }}" placeholder="10000">
+            </label>
+            <label>
+                <span>Review</span>
+                <select name="min_review">
+                    <option value="">Any review</option>
+                    <option value="4.5" {% if filters.min_review == "4.5" %}selected{% endif %}>4.5 and above</option>
+                    <option value="4.0" {% if filters.min_review == "4.0" %}selected{% endif %}>4.0 and above</option>
+                    <option value="3.5" {% if filters.min_review == "3.5" %}selected{% endif %}>3.5 and above</option>
+                </select>
+            </label>
+            <label>
+                <span>Location</span>
+                <input type="search" name="location" value="{{ filters.location }}" placeholder="North Campus">
+            </label>
+            <label>
+                <span>Sort</span>
+                <select name="sort">
+                    <option value="vacancy_desc" {% if filters.sort == "vacancy_desc" %}selected{% endif %}>High vacancy to low</option>
+                    <option value="price_asc" {% if filters.sort == "price_asc" %}selected{% endif %}>Price low to high</option>
+                    <option value="price_desc" {% if filters.sort == "price_desc" %}selected{% endif %}>Price high to low</option>
+                    <option value="review_desc" {% if filters.sort == "review_desc" %}selected{% endif %}>Best review</option>
+                    <option value="location_asc" {% if filters.sort == "location_asc" %}selected{% endif %}>Location</option>
+                </select>
+            </label>
+            <div class="filter-actions">
+                <button type="submit">Apply</button>
+                <a href="{% url 'hostels:home' %}">Reset</a>
+            </div>
+        </form>
+    </aside>
+
+    <section class="kanban-board" aria-label="Hostel kanban">
+        {% for hostel in hostels %}
+            <article class="hostel-card">
+                <img src="{{ hostel.photos.0 }}" alt="{{ hostel.name }} building">
+                <div class="card-body">
+                    <div class="card-title-row">
+                        <div>
+                            <h2>{{ hostel.name }}</h2>
+                            <div class="star-rating" aria-label="{{ hostel.review }} out of 5 review">
+                                <span class="stars-base">★★★★★</span>
+                                <span class="stars-fill" style="width: {{ hostel.review_percent }}%;">★★★★★</span>
+                            </div>
+                        </div>
+                        <span class="pill">{{ hostel.status }}</span>
+                    </div>
+                    <p>{{ hostel.summary }}</p>
+                    <div class="hostel-meta">
+                        <span>{{ hostel.area }}</span>
+                        <span>{{ hostel.gender|title }}</span>
+                        <span>{{ hostel.review }} review</span>
+                    </div>
+                    <dl class="metrics">
+                        <div>
+                            <dt>Vacant</dt>
+                            <dd>{{ hostel.counts.vacant }}</dd>
+                        </div>
+                        <div>
+                            <dt>Occupied</dt>
+                            <dd>{{ hostel.counts.occupied }}</dd>
+                        </div>
+                        <div>
+                            <dt>Rooms</dt>
+                            <dd>{{ hostel.rooms|length }}</dd>
+                        </div>
+                    </dl>
+                    <p class="price-range">Rs. {{ hostel.price_min }} - Rs. {{ hostel.price_max }} / month</p>
+                    <a class="primary-link" href="{% url 'hostels:hostel_detail' hostel.slug %}">Open hostel</a>
+                </div>
+            </article>
+        {% empty %}
+            <div class="empty-state">
+                <h2>No hostels found</h2>
+                <p>Try changing the filters or reset to see all dummy hostels.</p>
+            </div>
+        {% endfor %}
+    </section>
+</div>
+{% endblock %}

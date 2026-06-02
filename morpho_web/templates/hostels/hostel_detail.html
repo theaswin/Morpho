@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}{{ hostel.name }} | Morpho{% endblock %}
+
+{% block content %}
+<section class="hostel-hero">
+    <img src="{{ hostel.photos.0 }}" alt="{{ hostel.name }} banner">
+    <div class="hostel-hero-content">
+        <a class="back-link" href="{% url 'hostels:home' %}">Back to hostels</a>
+        <h1>{{ hostel.name }}</h1>
+        <p>{{ hostel.area }} · Warden {{ hostel.warden }}</p>
+    </div>
+</section>
+
+<section class="photo-strip" aria-label="{{ hostel.name }} pictures">
+    {% for photo in hostel.photos %}
+        <img src="{{ photo }}" alt="{{ hostel.name }} picture {{ forloop.counter }}">
+    {% endfor %}
+</section>
+
+<section class="content-section">
+    <div class="section-heading">
+        <div>
+            <p class="eyebrow">Room list</p>
+            <h2>Rooms</h2>
+        </div>
+        <span>{{ hostel.counts.vacant }} beds vacant</span>
+    </div>
+
+    <div class="room-grid">
+        {% for room in rooms %}
+            <article class="room-card">
+                <div>
+                    <p class="eyebrow">{{ room.floor }}</p>
+                    <h3>{{ room.name }}</h3>
+                    <p>{{ room.type }}</p>
+                </div>
+                <dl class="metrics compact">
+                    <div>
+                        <dt>Vacant</dt>
+                        <dd>{{ room.counts.vacant }}</dd>
+                    </div>
+                    <div>
+                        <dt>Total</dt>
+                        <dd>{{ room.counts.total }}</dd>
+                    </div>
+                </dl>
+                <a class="primary-link" href="{% url 'hostels:room_detail' hostel.slug room.slug %}">Open room</a>
+            </article>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
