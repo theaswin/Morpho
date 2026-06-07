@@ -58,6 +58,7 @@
                     <group>
                         <field name="room_id" readonly="1" />
                         <field name="partner_id" string="Resident"/>
+                        <field name="price"/>
                     </group>
                 </sheet>
             </form>

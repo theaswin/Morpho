@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}{{ room.name }} | {{ hostel.name }}{% endblock %}
 
@@ -22,7 +23,18 @@
                 <span class="bed-icon" aria-hidden="true"></span>
                 <h2>{{ bed.code }}</h2>
                 <p>{% if bed.status == "vacant" %}Vacant{% else %}Fulfilled{% endif %}</p>
-                <p class="bed-price">Rs. {{ room.price }} / month</p>
+                <p class="bed-price">Rs. {{ bed.price|default:room.price }} / month</p>
+                {% if bed.enquiry_mobile and bed.enquiry_message %}
+                    <a
+                        class="whatsapp-link"
+                        href="https://api.whatsapp.com/send?phone={{ bed.enquiry_mobile|urlencode }}&text={{ bed.enquiry_message|urlencode }}%20{{ room.name|urlencode }}%20{{ bed.code|urlencode }}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Contact via WhatsApp"
+                    >
+                        <img src="{% static 'img/whatsapp.png' %}" alt="WhatsApp" />
+                    </a>
+                {% endif %}
             </article>
         {% endfor %}
     </div>

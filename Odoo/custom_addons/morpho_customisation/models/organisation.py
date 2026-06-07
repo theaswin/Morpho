@@ -6,6 +6,7 @@ class Organisation(models.Model):
     _rec_name = 'name'
 
     name = fields.Char(string='Name')
+    logo = fields.Binary(string='Logo')
     vat = fields.Char(string='VAT')
     location = fields.Char(string='Location')
     mobile = fields.Char(string='Mobile')
@@ -17,6 +18,7 @@ class Organisation(models.Model):
     total_beds = fields.Integer(string='Total Beds', compute='_compute_stats', store=True)
     occupied_count = fields.Integer(string='Occupied', compute='_compute_stats', store=True)
     vacant_count = fields.Integer(string='Vacant', compute='_compute_stats', store=True)
+    default_message = fields.Text(string='Default Message')
 
     @api.depends('room_ids', 'room_ids.bed_ids', 'room_ids.bed_ids.partner_id')
     def _compute_stats(self):

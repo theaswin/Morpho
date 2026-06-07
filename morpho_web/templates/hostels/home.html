@@ -95,7 +95,8 @@
     <section class="kanban-board" aria-label="Hostel kanban">
         {% for hostel in hostels %}
             <article class="hostel-card">
-                <img src="{{ hostel.photos.0 }}" alt="{{ hostel.name }} building">
+                <a class="card-link" href="{% url 'hostels:hostel_detail' hostel.slug %}" aria-label="Open {{ hostel.name }}"></a>
+                <img src="{{ hostel.logo|default:hostel.photos.0 }}" alt="{{ hostel.name }} building">
                 <div class="card-body">
                     <div class="card-title-row">
                         <div>

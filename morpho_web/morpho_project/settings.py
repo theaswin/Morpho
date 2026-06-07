@@ -9,6 +9,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+ODOO_HOSTELS_API_URL = "http://localhost:1234/morpho/fetch_hostels"
+ODOO_HOSTELS_API_TIMEOUT = 10
+
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",

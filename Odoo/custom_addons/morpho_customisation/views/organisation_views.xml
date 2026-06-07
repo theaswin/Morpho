@@ -83,10 +83,12 @@
                         <group>
                             <field name="vat"/>
                             <field name="location"/>
+                            <field name="default_message"/>
                         </group>
                         <group>
                             <field name="mobile"/>
                             <field name="owner_id"/>
+                            <field name="logo" widget="image" class="oe_avatar" options="{'zoom': true, 'preview_image': 'logo', 'size': [128, 128]}"/>
                         </group>
                     </group>
                     <notebook>

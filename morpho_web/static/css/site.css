@@ -362,6 +362,7 @@ h1 {
 .hostel-card,
 .room-card,
 .bed-card {
+    position: relative;
     background: var(--surface);
     border: 1px solid var(--line);
     border-radius: 8px;
@@ -589,6 +590,19 @@ h1 {
     justify-content: space-between;
 }
 
+.card-link {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    text-indent: -9999px;
+    overflow: hidden;
+}
+
+.room-card .card-link,
+.hostel-card .card-link {
+    display: block;
+}
+
 .room-header {
     padding: 48px 0 20px;
 }
@@ -636,8 +650,32 @@ h1 {
 }
 
 .bed-card {
+    position: relative;
     min-height: 170px;
     padding: 18px;
+}
+
+.whatsapp-link {
+    position: absolute;
+    right: 18px;
+    bottom: 18px;
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #25D366;
+    color: #fff;
+    text-decoration: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.16);
+    z-index: 2;
+}
+
+.whatsapp-link img {
+    width: 18px;
+    height: 18px;
+    display: block;
 }
 
 .bed-card.vacant {

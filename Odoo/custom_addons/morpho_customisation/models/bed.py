@@ -11,3 +11,4 @@ class HostelBed(models.Model):
     partner_city = fields.Char(related='partner_id.city', string='City')
     partner_image = fields.Binary(related='partner_id.image_128', string='Resident Image')
     organisation_id = fields.Many2one('org.organisation', related='room_id.organisation_id', store=True, string='Organisation')
+    price = fields.Float(string='Price')

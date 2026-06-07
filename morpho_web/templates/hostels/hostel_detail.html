@@ -30,6 +30,7 @@
     <div class="room-grid">
         {% for room in rooms %}
             <article class="room-card">
+                <a class="card-link" href="{% url 'hostels:room_detail' hostel.slug room.slug %}" aria-label="Open room {{ room.name }}"></a>
                 <div>
                     <p class="eyebrow">{{ room.floor }}</p>
                     <h3>{{ room.name }}</h3>
@@ -45,7 +46,7 @@
                         <dd>{{ room.counts.total }}</dd>
                     </div>
                 </dl>
-                <a class="primary-link" href="{% url 'hostels:room_detail' hostel.slug room.slug %}">Open room</a>
+                <span class="primary-link">Open room</span>
             </article>
         {% endfor %}
     </div>
