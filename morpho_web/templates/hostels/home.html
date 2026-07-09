@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Hostels | Morpho{% endblock %}
 
@@ -96,7 +97,13 @@
         {% for hostel in hostels %}
             <article class="hostel-card">
                 <a class="card-link" href="{% url 'hostels:hostel_detail' hostel.slug %}" aria-label="Open {{ hostel.name }}"></a>
-                <img src="{{ hostel.logo|default:hostel.photos.0 }}" alt="{{ hostel.name }} building">
+                {% if hostel.logo %}
+                    <img src="{{ hostel.logo }}" alt="{{ hostel.name }} building">
+                {% elif hostel.photos %}
+                    <img src="{{ hostel.photos.0 }}" alt="{{ hostel.name }} building">
+                {% else %}
+                    <img src="{% static 'img/morpho-butterfly.svg' %}" alt="{{ hostel.name }} building">
+                {% endif %}
                 <div class="card-body">
                     <div class="card-title-row">
                         <div>

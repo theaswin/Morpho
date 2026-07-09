@@ -17,6 +17,12 @@
         <nav class="main-nav" aria-label="Primary">
             <a href="{% url 'hostels:home' %}">Home</a>
             <span>Availability</span>
+            {% if user.is_authenticated %}
+                <span class="nav-user">Hello {{ user.username }}</span>
+                <a href="{% url 'logout' %}">Logout</a>
+            {% else %}
+                <a href="{% url 'login' %}">Login</a>
+            {% endif %}
         </nav>
     </header>
 
@@ -46,8 +52,9 @@
             <div>
                 <h2>Current Scope</h2>
                 <p>
-                    Authentication and API integration will be added later. The current
-                    version uses dummy hostel, room, and bed data for layout testing.
+                    Authentication is available. The site reads hostel, room, and bed
+                    data from the database when present; otherwise it falls back to
+                    API or dummy data for layout testing.
                 </p>
             </div>
         </div>

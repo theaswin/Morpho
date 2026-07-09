@@ -1,10 +1,17 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}{{ hostel.name }} | Morpho{% endblock %}
 
 {% block content %}
 <section class="hostel-hero">
-    <img src="{{ hostel.photos.0 }}" alt="{{ hostel.name }} banner">
+    {% if hostel.photos %}
+        <img src="{{ hostel.photos.0 }}" alt="{{ hostel.name }} banner">
+    {% elif hostel.logo %}
+        <img src="{{ hostel.logo }}" alt="{{ hostel.name }} banner">
+    {% else %}
+        <img src="{% static 'img/morpho-butterfly.svg' %}" alt="{{ hostel.name }} banner">
+    {% endif %}
     <div class="hostel-hero-content">
         <a class="back-link" href="{% url 'hostels:home' %}">Back to hostels</a>
         <h1>{{ hostel.name }}</h1>

@@ -10,6 +10,7 @@ from django.shortcuts import render
 from django.http import Http404
 
 from .dummy_data import HOSTELS, bed_counts, hostel_counts
+from .models import Hostel, Room, Bed
 
 
 def _to_int(value):
@@ -216,14 +217,89 @@ def _with_hostel_display_data(hostel):
 
 
 def _get_hostels():
+    # Prefer database hostels when available
+    qs = Hostel.objects.all()
+    if qs.exists():
+        out = []
+        for h in qs:
+            rooms = []
+            for r in h.room_set.all():
+                beds = [
+                    {"code": b.code, "status": b.status, "price": b.price}
+                    for b in r.bed_set.all()
+                ]
+                rooms.append({"id": r.pk, "slug": r.slug, "name": r.name, "beds": beds, "price": r.price})
+
+            out.append(
+                {
+                    "id": h.pk,
+                    "slug": h.slug,
+                    "name": h.name,
+                    "area": h.area or "Unknown",
+                    "gender": h.gender or "mixed",
+                    "warden": h.warden or "",
+                    "summary": h.summary or "",
+                    "status": h.status or "",
+                    "capacity": h.capacity or sum(len(r["beds"]) for r in rooms),
+                    "occupied": h.occupied or 0,
+                    "review": float(h.review or 0),
+                    "price_min": h.price_min or 0,
+                    "price_max": h.price_max or (h.price_min or 0),
+                    "logo": (h.logo.url if getattr(h, "logo") else None),
+                    "photos": [p for p in (h.photos or "").split(",") if p],
+                    "rooms": rooms,
+                    "source": "db",
+                    "tags": [],
+                }
+            )
+        return out
+
     hostels = _fetch_hostels_from_odoo()
     return hostels if hostels else HOSTELS
 
 
 def _get_hostel(hostel_slug):
-    for hostel in _get_hostels():
-        if hostel.get("slug") == hostel_slug:
-            return hostel
+    # Try DB first
+    try:
+        h = Hostel.objects.get(slug=hostel_slug)
+        rooms = []
+        for r in h.room_set.all():
+            beds = [
+                {
+                    "code": b.code,
+                    "status": b.status,
+                    "price": b.price,
+                    "enquiry_mobile": b.enquiry_mobile,
+                    "enquiry_message": b.enquiry_message,
+                }
+                for b in r.bed_set.all()
+            ]
+            rooms.append({"id": r.pk, "slug": r.slug, "name": r.name, "beds": beds, "price": r.price})
+
+        return {
+            "id": h.pk,
+            "slug": h.slug,
+            "name": h.name,
+            "area": h.area or "Unknown",
+            "gender": h.gender or "mixed",
+            "warden": h.warden or "",
+            "summary": h.summary or "",
+            "status": h.status or "",
+            "capacity": h.capacity or sum(len(r["beds"]) for r in rooms),
+            "occupied": h.occupied or 0,
+            "review": float(h.review or 0),
+            "price_min": h.price_min or 0,
+            "price_max": h.price_max or (h.price_min or 0),
+            "logo": (h.logo.url if getattr(h, "logo") else None),
+            "photos": [p for p in (h.photos or "").split(",") if p],
+            "rooms": rooms,
+            "source": "db",
+            "tags": [],
+        }
+    except Hostel.DoesNotExist:
+        for hostel in _get_hostels():
+            if hostel.get("slug") == hostel_slug:
+                return hostel
     return None
 
 
@@ -245,9 +321,7 @@ def _find_room(hostel, room_slug):
 
 
 def home(request):
-    hostels = _fetch_hostels_from_odoo()
-    if not hostels:
-        hostels = HOSTELS
+    hostels = _get_hostels()
     hostels = [_with_hostel_display_data(hostel) for hostel in hostels]
     total_hostels = len(hostels)
     total_beds = sum(hostel["counts"]["total"] for hostel in hostels)
@@ -323,8 +397,8 @@ def hostel_detail(request, hostel_slug):
     hostel = _get_hostel(hostel_slug)
     if hostel is None:
         raise Http404("Hostel not found")
-    # If this is a remote hostel (has an id), fetch rooms from the API so data is fresh
-    if hostel.get("id"):
+    # If this is a remote hostel (has an id and not from our DB), fetch rooms from the API
+    if hostel.get("id") and hostel.get("source") != "db":
         rooms_raw = _fetch_rooms_from_odoo(hostel.get("id"))
     else:
         rooms_raw = hostel.get("rooms", [])
@@ -349,8 +423,8 @@ def room_detail(request, hostel_slug, room_slug):
     if room is None:
         raise Http404("Room not found")
 
-    # If remote, refresh bed list from API (uses hostel id and room id when available)
-    if hostel.get("id") and room.get("id"):
+    # If remote (not db source), refresh bed list from API (uses hostel id and room id when available)
+    if hostel.get("id") and room.get("id") and hostel.get("source") != "db":
         beds = _fetch_beds_from_odoo(hostel.get("id"), room.get("id"))
         # normalize beds into expected structure and preserve bed price and enquiry details
         room = {
